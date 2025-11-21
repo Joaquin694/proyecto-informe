@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0ta1lhden08u"]
+
+[ext_resource type="Script" uid="uid://dw6513l3w5bjf" path="res://personaje.gd" id="1_ffn0g"]
+[ext_resource type="Texture2D" uid="uid://nr0fdcp7lfl1" path="res://icon.svg" id="2_ull15"]
+[ext_resource type="PackedScene" uid="uid://d286smqmjq10u" path="res://Escenas/arma.tscn" id="3_ull15"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwvsk"]
+size = Vector2(110, 110)
+
+[node name="Personaje" type="CharacterBody2D"]
+position = Vector2(657, 304)
+script = ExtResource("1_ffn0g")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ull15")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vwvsk")
+
+[node name="Arma" parent="." instance=ExtResource("3_ull15")]
+position = Vector2(51, -38)
