@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://ehuxfjq3g6fh"]
+[gd_scene load_steps=4 format=3 uid="uid://ehuxfjq3g6fh"]
+
+[ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Codigo/personaje.tscn" id="1_r0q2w"]
+[ext_resource type="PackedScene" uid="uid://bbjucvt0xky0t" path="res://Escenas/fantasma.tscn" id="2_rwuof"]
+[ext_resource type="PackedScene" uid="uid://ve2giht3qrew" path="res://Escenas/araña.tscn" id="4_3ccqb"]
 
 [node name="Escena1" type="Node2D"]
+
+[node name="Personaje" parent="." instance=ExtResource("1_r0q2w")]
+position = Vector2(750, 360)
+
+[node name="Fantasma" parent="." groups=["enemigos"] instance=ExtResource("2_rwuof")]
+position = Vector2(270, 325)
+
+[node name="Araña" parent="." groups=["enemigos"] instance=ExtResource("4_3ccqb")]
+position = Vector2(550, 100)

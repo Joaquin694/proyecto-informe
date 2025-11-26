@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbjucvt0xky0t"]
+
+[ext_resource type="Script" uid="uid://c8arphhiqg78j" path="res://Escenas/fantasma.gd" id="1_v16sl"]
+[ext_resource type="Texture2D" uid="uid://c8wqipb5jwne3" path="res://fantasma.png" id="1_x0nhg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyesi"]
+size = Vector2(125, 114)
+
+[node name="Fantasma" type="CharacterBody2D"]
+collision_layer = 2
+up_direction = Vector2(0.7071068, -0.7071068)
+script = ExtResource("1_v16sl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["enemigos"]]
+position = Vector2(53.5, 44.5)
+scale = Vector2(4.147059, 3.6176472)
+texture = ExtResource("1_x0nhg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(52.5, 47)
+shape = SubResource("RectangleShape2D_iyesi")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ve2giht3qrew"]
+
+[ext_resource type="Texture2D" uid="uid://buf8mi7ln2y42" path="res://araña.png" id="1_5fx35"]
+[ext_resource type="Script" uid="uid://wxcns0x2ydop" path="res://Escenas/araña.gd" id="1_ughgr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyesi"]
+size = Vector2(132, 95)
+
+[node name="Araña" type="CharacterBody2D"]
+collision_layer = 2
+up_direction = Vector2(0.7071068, -0.7071068)
+script = ExtResource("1_ughgr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["enemigos"]]
+position = Vector2(56.5, 46)
+scale = Vector2(4.53125, 3.875)
+texture = ExtResource("1_5fx35")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(56, 37.5)
+shape = SubResource("RectangleShape2D_iyesi")
