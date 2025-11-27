@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 300
+const SPEED = 600
 var damage = 20  # Daño por bala
 
 func _ready():

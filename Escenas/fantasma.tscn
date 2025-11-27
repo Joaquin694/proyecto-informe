@@ -10,6 +10,7 @@ size = Vector2(125, 114)
 collision_layer = 2
 up_direction = Vector2(0.7071068, -0.7071068)
 script = ExtResource("1_v16sl")
+speed = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["enemigos"]]
 position = Vector2(53.5, 44.5)
