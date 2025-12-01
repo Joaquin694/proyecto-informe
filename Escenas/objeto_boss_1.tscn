@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqpfbn1kw0n4q"]
+
+[ext_resource type="Script" uid="uid://bwemg05pxrfpg" path="res://objeto_boss_1.gd" id="1_cc46n"]
+[ext_resource type="Texture2D" uid="uid://nr0fdcp7lfl1" path="res://icon.svg" id="2_u3x3v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cc46n"]
+radius = 60.827625
+
+[node name="ObjetoBoss1" type="Area2D"]
+script = ExtResource("1_cc46n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_u3x3v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cc46n")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-80, -68, 160, 136)
