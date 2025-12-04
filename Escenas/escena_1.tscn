@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Codigo/personaje.tscn" id="1_r0q2w"]
 [ext_resource type="PackedScene" uid="uid://bbjucvt0xky0t" path="res://Escenas/fantasma.tscn" id="2_rwuof"]
 [ext_resource type="Texture2D" uid="uid://cbwrtgsm1o6s2" path="res://light.png" id="3_lkqo8"]
-[ext_resource type="PackedScene" uid="uid://ve2giht3qrew" path="res://Escenas/ara├▒a.tscn" id="4_3ccqb"]
 [ext_resource type="Shader" uid="uid://c1e3putff3rf3" path="res://Escenas/escena_1.gdshader" id="6_10xg8"]
+[ext_resource type="PackedScene" uid="uid://cpdctc3grtx3y" path="res://Escenas/araÔö£ÔûÆa.tscn" id="7_dr5is"]
 [ext_resource type="PackedScene" uid="uid://cmy20o1hi5apw" path="res://Escenas/boss_escena_1.tscn" id="7_g8504"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g8504"]
@@ -25,7 +25,7 @@ scale = Vector2(1.5545834, 1.3645353)
 texture = ExtResource("1_3ccqb")
 
 [node name="Personaje" parent="." instance=ExtResource("1_r0q2w")]
-position = Vector2(723, 360)
+position = Vector2(478, 293)
 
 [node name="Camera2D" type="Camera2D" parent="Personaje"]
 visible = false
@@ -49,12 +49,12 @@ texture = ExtResource("3_lkqo8")
 [node name="Fantasma" parent="." groups=["enemigos"] instance=ExtResource("2_rwuof")]
 position = Vector2(1853, 268)
 
-[node name="Araña" parent="." groups=["enemigos"] instance=ExtResource("4_3ccqb")]
-position = Vector2(1492, -83)
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="BossEscena1" parent="." instance=ExtResource("7_g8504")]
 position = Vector2(967, 496)
+
+[node name="Araña" parent="." instance=ExtResource("7_dr5is")]
+position = Vector2(987, 77)

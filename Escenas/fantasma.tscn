@@ -1,10 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbjucvt0xky0t"]
+[gd_scene load_steps=11 format=3 uid="uid://bbjucvt0xky0t"]
 
 [ext_resource type="Script" uid="uid://c8arphhiqg78j" path="res://Escenas/fantasma.gd" id="1_v16sl"]
-[ext_resource type="Texture2D" uid="uid://c8wqipb5jwne3" path="res://fantasma.png" id="1_x0nhg"]
+[ext_resource type="Texture2D" uid="uid://dt3wpujqjgm8u" path="res://fotogramas/fantasma/derecha/sprite_0.png" id="3_wjo4v"]
+[ext_resource type="Texture2D" uid="uid://bo4f0jyaogrpf" path="res://fotogramas/fantasma/derecha/sprite_1.png" id="4_frxph"]
+[ext_resource type="Texture2D" uid="uid://cqid22cdtbqae" path="res://fotogramas/fantasma/derecha/sprite_2.png" id="5_cuve3"]
+[ext_resource type="Texture2D" uid="uid://bxjen4sp4na13" path="res://fotogramas/fantasma/izquierda/sprite_0.png" id="6_rs2cy"]
+[ext_resource type="Texture2D" uid="uid://b48xh2h6warry" path="res://fotogramas/fantasma/izquierda/sprite_1.png" id="7_kdgip"]
+[ext_resource type="Texture2D" uid="uid://dt8wiyoffp3eg" path="res://fotogramas/fantasma/izquierda/sprite_2.png" id="8_bgxll"]
+[ext_resource type="Texture2D" uid="uid://wboqm0krs08s" path="res://fotogramas/fantasma/quieto/fantasma.png" id="9_vaesa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iyesi"]
 size = Vector2(125, 114)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jl7yd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wjo4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_frxph")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cuve3")
+}],
+"loop": true,
+"name": &"derecha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rs2cy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kdgip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bgxll")
+}],
+"loop": true,
+"name": &"izquierda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_vaesa")
+}],
+"loop": true,
+"name": &"quieto",
+"speed": 5.0
+}]
 
 [node name="Fantasma" type="CharacterBody2D"]
 collision_layer = 2
@@ -12,11 +57,12 @@ up_direction = Vector2(0.7071068, -0.7071068)
 script = ExtResource("1_v16sl")
 speed = 150.0
 
-[node name="Sprite2D" type="Sprite2D" parent="." groups=["enemigos"]]
-position = Vector2(53.5, 44.5)
-scale = Vector2(4.147059, 3.6176472)
-texture = ExtResource("1_x0nhg")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(52.5, 47)
 shape = SubResource("RectangleShape2D_iyesi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(54, 45)
+scale = Vector2(4.1764708, 3.6470587)
+sprite_frames = SubResource("SpriteFrames_jl7yd")
+animation = &"quieto"

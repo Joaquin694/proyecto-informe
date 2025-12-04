@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ProyectoInforme"
-run/main_scene="uid://ehuxfjq3g6fh"
+run/main_scene="uid://dkyx5a44b4ruv"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

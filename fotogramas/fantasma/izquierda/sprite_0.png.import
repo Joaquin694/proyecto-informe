@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buf8mi7ln2y42"
-path="res://.godot/imported/ara├▒a.png-2c932168fe248259a3f77ab5f0ebc203.ctex"
+uid="uid://bxjen4sp4na13"
+path="res://.godot/imported/sprite_0.png-285a081e5e86f075271d984a8fa321a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ara├▒a.png"
-dest_files=["res://.godot/imported/ara├▒a.png-2c932168fe248259a3f77ab5f0ebc203.ctex"]
+source_file="res://fotogramas/fantasma/izquierda/sprite_0.png"
+dest_files=["res://.godot/imported/sprite_0.png-285a081e5e86f075271d984a8fa321a1.ctex"]
 
 [params]
 

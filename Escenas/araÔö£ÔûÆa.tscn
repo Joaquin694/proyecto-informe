@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpdctc3grtx3y"]
+
+[ext_resource type="Script" uid="uid://wxcns0x2ydop" path="res://Escenas/araÔö£ÔûÆa.gd" id="1_ughgr"]
+[ext_resource type="Texture2D" uid="uid://cb63t3506njdc" path="res://fotogramas/ara├▒a/derecha/sprite_0.png" id="3_tms65"]
+[ext_resource type="Texture2D" uid="uid://cbkb74yvlg4na" path="res://fotogramas/ara├▒a/derecha/sprite_1.png" id="4_vyuq5"]
+[ext_resource type="Texture2D" uid="uid://dkje3cm62m3vg" path="res://fotogramas/ara├▒a/derecha/sprite_2.png" id="5_1083k"]
+[ext_resource type="Texture2D" uid="uid://ddg2kahrj2j05" path="res://fotogramas/ara├▒a/izquierda/sprite_0.png" id="6_u1gsd"]
+[ext_resource type="Texture2D" uid="uid://dlws8pundvhsv" path="res://fotogramas/ara├▒a/izquierda/sprite_1.png" id="7_igyy1"]
+[ext_resource type="Texture2D" uid="uid://51xqhw7qe8v3" path="res://fotogramas/ara├▒a/izquierda/sprite_2.png" id="8_isji1"]
+[ext_resource type="Texture2D" uid="uid://fwhf0u44b24v" path="res://fotogramas/ara├▒a/quieto/ara├▒a.png" id="9_7ld46"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyesi"]
+size = Vector2(132, 95)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2wauc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tms65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vyuq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1083k")
+}],
+"loop": true,
+"name": &"derecha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_u1gsd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_igyy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_isji1")
+}],
+"loop": true,
+"name": &"izquierda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7ld46")
+}],
+"loop": true,
+"name": &"quieto",
+"speed": 5.0
+}]
+
+[node name="Araña" type="CharacterBody2D"]
+collision_layer = 2
+up_direction = Vector2(0.7071068, -0.7071068)
+script = ExtResource("1_ughgr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(56, 37.5)
+shape = SubResource("RectangleShape2D_iyesi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(53.000004, 34.999996)
+scale = Vector2(4.3125, 3.21875)
+sprite_frames = SubResource("SpriteFrames_2wauc")
+animation = &"derecha"
