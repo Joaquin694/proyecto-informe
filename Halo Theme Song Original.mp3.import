@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://diomlspryl7rx"
+path="res://.godot/imported/Halo Theme Song Original.mp3-a10b27c65b0da188965eea424aef7368.mp3str"
+
+[deps]
+
+source_file="res://Halo Theme Song Original.mp3"
+dest_files=["res://.godot/imported/Halo Theme Song Original.mp3-a10b27c65b0da188965eea424aef7368.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
