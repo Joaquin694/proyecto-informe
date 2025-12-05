@@ -68,3 +68,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="BossEscena1" parent="." instance=ExtResource("7_g8504")]
 position = Vector2(839, 314)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BarraVidaJugador" type="TextureProgressBar" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0

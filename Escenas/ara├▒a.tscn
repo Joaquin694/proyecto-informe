@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://ve2giht3qrew"]
 
 [ext_resource type="Script" uid="uid://wxcns0x2ydop" path="res://Escenas/ara├▒a.gd" id="1_ughgr"]
-[ext_resource type="Texture2D" uid="uid://cb63t3506njdc" path="res://fotogramas/araña/derecha/sprite_0.png" id="3_tms65"]
-[ext_resource type="Texture2D" uid="uid://cbkb74yvlg4na" path="res://fotogramas/araña/derecha/sprite_1.png" id="4_vyuq5"]
-[ext_resource type="Texture2D" uid="uid://dkje3cm62m3vg" path="res://fotogramas/araña/derecha/sprite_2.png" id="5_1083k"]
-[ext_resource type="Texture2D" uid="uid://ddg2kahrj2j05" path="res://fotogramas/araña/izquierda/sprite_0.png" id="6_u1gsd"]
-[ext_resource type="Texture2D" uid="uid://dlws8pundvhsv" path="res://fotogramas/araña/izquierda/sprite_1.png" id="7_igyy1"]
-[ext_resource type="Texture2D" uid="uid://51xqhw7qe8v3" path="res://fotogramas/araña/izquierda/sprite_2.png" id="8_isji1"]
-[ext_resource type="Texture2D" uid="uid://fwhf0u44b24v" path="res://fotogramas/araña/quieto/araña.png" id="9_7ld46"]
+[ext_resource type="Texture2D" uid="uid://cb63t3506njdc" path="res://fotogramas/ara├▒a/derecha/sprite_0.png" id="3_tms65"]
+[ext_resource type="Texture2D" uid="uid://cbkb74yvlg4na" path="res://fotogramas/ara├▒a/derecha/sprite_1.png" id="4_vyuq5"]
+[ext_resource type="Texture2D" uid="uid://dkje3cm62m3vg" path="res://fotogramas/ara├▒a/derecha/sprite_2.png" id="5_1083k"]
+[ext_resource type="Texture2D" uid="uid://ddg2kahrj2j05" path="res://fotogramas/ara├▒a/izquierda/sprite_0.png" id="6_u1gsd"]
+[ext_resource type="Texture2D" uid="uid://dlws8pundvhsv" path="res://fotogramas/ara├▒a/izquierda/sprite_1.png" id="7_igyy1"]
+[ext_resource type="Texture2D" uid="uid://51xqhw7qe8v3" path="res://fotogramas/ara├▒a/izquierda/sprite_2.png" id="8_isji1"]
+[ext_resource type="Texture2D" uid="uid://fwhf0u44b24v" path="res://fotogramas/ara├▒a/quieto/ara├▒a.png" id="9_7ld46"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iyesi"]
 size = Vector2(132, 95)
@@ -66,3 +66,7 @@ position = Vector2(53, 35.5)
 scale = Vector2(4.3125, 3.21875)
 sprite_frames = SubResource("SpriteFrames_2wauc")
 animation = &"quieto"
+
+[node name="BarraVida" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0

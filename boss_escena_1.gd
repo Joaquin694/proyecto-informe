@@ -2,22 +2,26 @@ extends CharacterBody2D
 
 @export var projectile_scene: PackedScene
 @export var speed := 100.0
-var player
+var vida := 200
 
+var player
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var barra_vida: TextureProgressBar = $BarraVida
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 
-	# Verificar timer
+	# Configurar barra
+	barra_vida.max_value = vida
+	barra_vida.value = vida
+
+	# Verificar que el timer exista
 	if has_node("AttackTimer"):
 		$AttackTimer.timeout.connect(_on_timer_timeout)
 	else:
-		print("ERROR: Nodo 'AttackTimer' no existe en la escena del Boss")
+		print("ERROR: Falta AttackTimer en el Boss")
 
-	# Animación inicial
-	if anim:
-		anim.play("quieto")
+	anim.play("quieto")
 
 
 func _physics_process(delta):
@@ -26,7 +30,6 @@ func _physics_process(delta):
 		velocity = direction * speed
 		move_and_slide()
 
-		# Animaciones en base al movimiento
 		if abs(velocity.x) > 10:
 			if velocity.x > 0:
 				anim.play("derecha")
@@ -36,13 +39,21 @@ func _physics_process(delta):
 			anim.play("quieto")
 
 
+func recibir_daño(cantidad):
+	vida -= cantidad
+	barra_vida.value = vida
+
+	if vida <= 0:
+		queue_free()
+
+
 func _on_timer_timeout():
 	lanzar_objeto_gigante()
 
 
 func lanzar_objeto_gigante():
 	if projectile_scene == null:
-		print("ERROR: No has asignado la escena del proyectil en el Inspector")
+		print("ERROR: Debes asignar projectile_scene en el Inspector")
 		return
 
 	var projectile = projectile_scene.instantiate()
@@ -53,5 +64,4 @@ func lanzar_objeto_gigante():
 		projectile.direction = dir_vector
 		projectile.rotation = dir_vector.angle()
 
-	# Añadir después de la física para evitar errores
 	get_tree().root.call_deferred("add_child", projectile)

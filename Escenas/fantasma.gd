@@ -1,16 +1,19 @@
 extends CharacterBody2D
 
 var vida = 50
-
 @export var speed: float
 
 var player
-
 @onready var anim = $AnimatedSprite2D
+@onready var barra_vida: TextureProgressBar = $BarraVida
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	anim.play("quieto")
+
+	# Configurar barra
+	barra_vida.max_value = vida
+	barra_vida.value = vida
 
 func _physics_process(delta):
 	if not player:
@@ -31,6 +34,7 @@ func _physics_process(delta):
 
 func recibir_daño(cantidad):
 	vida -= cantidad
-	print("vida:", vida)
+	barra_vida.value = vida
+
 	if vida <= 0:
 		queue_free()
