@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dkyx5a44b4ruv"]
 
 [ext_resource type="Script" uid="uid://cfttji8hst36y" path="res://Scripts/main_menu.gd" id="1_3bb84"]
-[ext_resource type="Texture2D" uid="uid://cflf6oj4qpwdi" path="res://Imagenes/h.png" id="2_jg0v5"]
+[ext_resource type="Texture2D" uid="uid://b2v5sws8oyi01" path="res://Imagenes/menu_background_v1.png" id="2_jg0v5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ij1hm"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -27,34 +27,35 @@ script = ExtResource("1_3bb84")
 layout_mode = 0
 offset_left = 119.0
 offset_top = -196.0
-offset_right = 1268.0
-offset_bottom = 524.0
+offset_right = 1266.0
+offset_bottom = 454.0
 texture = ExtResource("2_jg0v5")
-
-[node name="QuitButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 375.0
-offset_top = 126.0
-offset_right = 977.0
-offset_bottom = 157.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_ij1hm")
+expand_mode = 1
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 375.0
-offset_top = 34.0
-offset_right = 977.0
-offset_bottom = 65.0
+offset_left = 469.0
+offset_top = 8.0
+offset_right = 916.0
+offset_bottom = 47.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_ij1hm")
 
 [node name="OptionsButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 371.0
-offset_top = 75.0
-offset_right = 973.0
+offset_left = 469.0
+offset_top = 63.0
+offset_right = 916.0
 offset_bottom = 106.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_anpoc")
 
-[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 116.0
+offset_right = 918.0
+offset_bottom = 158.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ij1hm")
+
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
