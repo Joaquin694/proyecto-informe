@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://622ccux4qemq"]
 
 [ext_resource type="PackedScene" uid="uid://cmy20o1hi5apw" path="res://Escenas/boss_escena_1.tscn" id="1_1wm3a"]
-[ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Codigo/personaje.tscn" id="2_ol22c"]
+[ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Escenas/personaje.tscn" id="2_ol22c"]
 
 [node name="pruebitas" type="Node2D"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d286smqmjq10u"]
 
-[ext_resource type="Script" uid="uid://y7kec7bf5gyc" path="res://Escenas/arma.gd" id="1_go1l7"]
-[ext_resource type="Texture2D" uid="uid://c4hc4e5voedd1" path="res://Escenas/gun.png" id="2_go1l7"]
+[ext_resource type="Script" uid="uid://y7kec7bf5gyc" path="res://Scripts/arma.gd" id="1_go1l7"]
+[ext_resource type="Texture2D" uid="uid://c4hc4e5voedd1" path="res://Imagenes/gun.png" id="2_go1l7"]
 
 [node name="Arma" type="Node2D"]
 script = ExtResource("1_go1l7")

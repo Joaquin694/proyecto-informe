@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://beedqearji7o4"
+path="res://.godot/imported/In The Androgynous Dark.mp3-a839fea24dfbcc0f05134f82d798b1f0.mp3str"
+
+[deps]
+
+source_file="res://Audio/In The Androgynous Dark.mp3"
+dest_files=["res://.godot/imported/In The Androgynous Dark.mp3-a839fea24dfbcc0f05134f82d798b1f0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

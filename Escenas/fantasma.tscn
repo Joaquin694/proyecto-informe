@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bbjucvt0xky0t"]
 
-[ext_resource type="Script" uid="uid://c8arphhiqg78j" path="res://Escenas/fantasma.gd" id="1_v16sl"]
+[ext_resource type="Script" uid="uid://c8arphhiqg78j" path="res://Scripts/fantasma.gd" id="1_v16sl"]
 [ext_resource type="Texture2D" uid="uid://dt3wpujqjgm8u" path="res://fotogramas/fantasma/derecha/sprite_0.png" id="3_wjo4v"]
 [ext_resource type="Texture2D" uid="uid://bo4f0jyaogrpf" path="res://fotogramas/fantasma/derecha/sprite_1.png" id="4_frxph"]
 [ext_resource type="Texture2D" uid="uid://cqid22cdtbqae" path="res://fotogramas/fantasma/derecha/sprite_2.png" id="5_cuve3"]
@@ -67,8 +67,9 @@ scale = Vector2(4.1764708, 3.6470587)
 sprite_frames = SubResource("SpriteFrames_jl7yd")
 animation = &"quieto"
 
-[node name="BarraVida" type="TextureProgressBar" parent="."]
-offset_left = 54.0
-offset_top = 45.0
-offset_right = 94.0
-offset_bottom = 85.0
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 264.0
+offset_top = 41.0
+offset_right = 455.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)

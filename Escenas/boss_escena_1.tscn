@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cmy20o1hi5apw"]
 
-[ext_resource type="Script" uid="uid://c28im4i0xud8" path="res://boss_escena_1.gd" id="1_d25hw"]
+[ext_resource type="Script" uid="uid://c28im4i0xud8" path="res://Scripts/boss_escena_1.gd" id="1_d25hw"]
 [ext_resource type="PackedScene" uid="uid://bqpfbn1kw0n4q" path="res://Escenas/objeto_boss_1.tscn" id="2_whwbr"]
 [ext_resource type="Texture2D" uid="uid://5qo5ivjxgexs" path="res://fotogramas/boss/derecha/sprite_0.png" id="4_quho2"]
 [ext_resource type="Texture2D" uid="uid://dfmnbw0ioac6f" path="res://fotogramas/boss/derecha/sprite_1.png" id="5_kuw4k"]
@@ -69,7 +69,3 @@ position = Vector2(39.5, 39)
 scale = Vector2(2.234375, 2.21875)
 sprite_frames = SubResource("SpriteFrames_s82o7")
 animation = &"quieto"
-
-[node name="BarraVida" type="TextureProgressBar" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
