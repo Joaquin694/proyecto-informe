@@ -240,8 +240,10 @@ arana_scene = ExtResource("4_3ccqb")
 fantasma_scene = ExtResource("2_rwuof")
 
 [node name="Marker2D" type="Marker2D" parent="Spawner"]
+position = Vector2(707, 146)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawner"]
+position = Vector2(704, 572)
 
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Resume" to="MenuPausa/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Opciones" to="MenuPausa/PauseMenu" method="_on_opciones_pressed"]
