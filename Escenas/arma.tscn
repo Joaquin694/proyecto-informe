@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://d286smqmjq10u"]
+[gd_scene load_steps=5 format=3 uid="uid://d286smqmjq10u"]
 
 [ext_resource type="Script" uid="uid://y7kec7bf5gyc" path="res://Scripts/arma.gd" id="1_go1l7"]
-[ext_resource type="Texture2D" uid="uid://c4hc4e5voedd1" path="res://Imagenes/gun.png" id="2_go1l7"]
+[ext_resource type="Texture2D" uid="uid://b2gc10mxktfee" path="res://Imagenes/michal-poplawski-michal-poplawski-gun-Photoroom.png" id="2_yua7b"]
+[ext_resource type="AudioStream" uid="uid://c04cgtweotu6r" path="res://Audio/heathers-gunshot-effect2-100653.mp3" id="3_00gnc"]
+[ext_resource type="AudioStream" uid="uid://bgya2qryqpy1o" path="res://Audio/toy-gun-reloading-amp-shooting-419582.mp3" id="4_yua7b"]
 
 [node name="Arma" type="Node2D"]
 script = ExtResource("1_go1l7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(47, 20)
-scale = Vector2(3.0588233, 2.1818182)
-texture = ExtResource("2_go1l7")
+position = Vector2(32, 15)
+scale = Vector2(0.20322347, 0.1739549)
+texture = ExtResource("2_yua7b")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(101, 5)
+
+[node name="SonidoDisparo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_00gnc")
+
+[node name="SonidoRecarga" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_yua7b")

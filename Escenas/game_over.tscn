@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://chbjpc6khsly1"]
+
+[ext_resource type="Texture2D" uid="uid://dxy3fmtmwskem" path="res://Imagenes/game_over_menu_1_.png" id="1_37yi2"]
+[ext_resource type="Script" uid="uid://54rw7wbvt6t3" path="res://Scripts/game_over.gd" id="2_37yi2"]
+[ext_resource type="AudioStream" uid="uid://7thfntu5wnly" path="res://Audio/game-over-deep-male-voice-clip-352695.mp3" id="3_b2ges"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37yi2"]
+bg_color = Color(0.5882353, 0.5882353, 0.5882353, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2ges"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(575, 324.00003)
+scale = Vector2(0.36003166, 0.27083337)
+texture = ExtResource("1_37yi2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOver" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_37yi2")
+
+[node name="Reintentar" type="Button" parent="CanvasLayer/GameOver"]
+layout_mode = 0
+offset_left = 353.0
+offset_top = 336.0
+offset_right = 800.0
+offset_bottom = 384.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_37yi2")
+
+[node name="Menu" type="Button" parent="CanvasLayer/GameOver"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 415.0
+offset_right = 800.0
+offset_bottom = 460.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_b2ges")
+
+[node name="AudioGameOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b2ges")
+
+[connection signal="pressed" from="CanvasLayer/GameOver/Reintentar" to="CanvasLayer/GameOver" method="_on_reintentar_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOver/Menu" to="CanvasLayer/GameOver" method="_on_menu_pressed"]

@@ -1,7 +1,5 @@
 extends Node2D
 
-# Sistema de oleadas independiente para arañas y fantasmas
-
 @export var arana_scene: PackedScene
 @export var fantasma_scene: PackedScene
 @export var spawn_automatico = true
@@ -9,11 +7,10 @@ extends Node2D
 @export var puntos_spawn: Array[Marker2D] = []
 
 var oleada_actual = 0
-var enemigos_por_oleada = 3
+var enemigos_por_oleada = 4
 var tiempo_transcurrido = 0.0
 
 func _ready():
-	# Si no hay puntos de spawn definidos, crear algunos por defecto
 	if puntos_spawn.is_empty():
 		print("ADVERTENCIA: No hay puntos de spawn definidos. Usa Marker2D")
 
@@ -29,7 +26,7 @@ func _process(delta):
 
 func iniciar_oleada():
 	oleada_actual += 1
-	var cantidad = enemigos_por_oleada + (oleada_actual - 1)  # Aumenta con cada oleada
+	var cantidad = enemigos_por_oleada + (oleada_actual - 1)
 	
 	print("Iniciando oleada ", oleada_actual, " con ", cantidad, " enemigos")
 	
@@ -40,7 +37,6 @@ func iniciar_oleada():
 func spawn_enemigo_aleatorio():
 	var enemigo
 	
-	# 50% araña, 50% fantasma
 	if randf() > 0.5:
 		if arana_scene:
 			enemigo = arana_scene.instantiate()
@@ -52,9 +48,7 @@ func spawn_enemigo_aleatorio():
 		print("ERROR: No se pudo instanciar enemigo")
 		return
 	
-	# Elegir punto de spawn aleatorio
 	if puntos_spawn.is_empty():
-		# Spawn aleatorio en el mapa si no hay puntos definidos
 		enemigo.global_position = Vector2(
 			randf_range(100, 1820),
 			randf_range(100, 980)
@@ -63,8 +57,22 @@ func spawn_enemigo_aleatorio():
 		var punto_aleatorio = puntos_spawn[randi() % puntos_spawn.size()]
 		enemigo.global_position = punto_aleatorio.global_position
 	
-	# Agregar a la escena actual, no a root
+	configurar_enemigo(enemigo)
+	
 	get_parent().call_deferred("add_child", enemigo)
+	
+	print("Enemigo spawneado: ", enemigo.name, " en ", enemigo.global_position)
+
+func configurar_enemigo(enemigo: CharacterBody2D):
+	enemigo.add_to_group("enemigos")
+	
+	enemigo.set_collision_layer_value(1, false)  # No está en capa jugador
+	enemigo.set_collision_layer_value(2, false)  # No está en capa proyectiles
+	enemigo.set_collision_layer_value(3, true)   # SÍ está en capa enemigos
+	
+	enemigo.set_collision_mask_value(1, true)    # Colisiona con jugador
+	enemigo.set_collision_mask_value(2, true)    # Colisiona con proyectiles
+	enemigo.set_collision_mask_value(3, false)   # No colisiona con otros enemigos
 
 func detener_oleadas():
 	spawn_automatico = false

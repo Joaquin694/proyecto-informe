@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ehuxfjq3g6fh"]
+[gd_scene load_steps=26 format=3 uid="uid://ehuxfjq3g6fh"]
 
 [ext_resource type="Script" uid="uid://dsb2cng7snpac" path="res://Scripts/escena_1.gd" id="1_dr5is"]
 [ext_resource type="Texture2D" uid="uid://brkl6g1cdoc4d" path="res://Imagenes/Sprite-0001.png" id="1_g8504"]
@@ -8,23 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://ve2giht3qrew" path="res://Escenas/ara├▒a.tscn" id="4_3ccqb"]
 [ext_resource type="Shader" uid="uid://c1e3putff3rf3" path="res://Escenas/escena_1.gdshader" id="6_10xg8"]
 [ext_resource type="PackedScene" uid="uid://cmy20o1hi5apw" path="res://Escenas/boss_escena_1.tscn" id="7_g8504"]
+[ext_resource type="Script" uid="uid://br7xdhnowieh1" path="res://Scripts/BarraVida.gd" id="9_0wnei"]
 [ext_resource type="Script" uid="uid://dsn3fkebc8c3x" path="res://Scripts/menu_paused.gd" id="9_5o1io"]
+[ext_resource type="Texture2D" uid="uid://bcw5ckn4couf3" path="res://fotogramas/Corazon/CorazonVacio6.png" id="10_8na4j"]
 [ext_resource type="FontFile" uid="uid://bnjukcosuv435" path="res://Minecrafter.Reg.ttf" id="10_k7ihp"]
-[ext_resource type="Script" uid="uid://ba5j61itytgqi" path="res://Scripts/spawner.gd" id="11_k7ihp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5o1io"]
-bg_color = Color(0.2994265, 0.2994265, 0.2994265, 0.2)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7ihp"]
-bg_color = Color(0.23265809, 0.60635805, 0.3010371, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[ext_resource type="Texture2D" uid="uid://b3kuqcu61juib" path="res://fotogramas/Corazon/CorazonVacio5.png" id="11_8ucqy"]
+[ext_resource type="Script" uid="uid://dyrxfm1nmo4hi" path="res://Scripts/Menu_Opciones.gd" id="11_k7ihp"]
+[ext_resource type="Texture2D" uid="uid://bkibbj2awgrut" path="res://fotogramas/Corazon/CorazonVacio4.png" id="12_07yqm"]
+[ext_resource type="Script" uid="uid://ba5j61itytgqi" path="res://Scripts/spawner.gd" id="12_n7lgh"]
+[ext_resource type="Texture2D" uid="uid://b5b3f7r8jw0ea" path="res://fotogramas/Corazon/CorazonVacio3.png" id="13_dr07i"]
+[ext_resource type="Texture2D" uid="uid://cbpoxheruvj82" path="res://fotogramas/Corazon/CorazonVacio2.png" id="14_s5e1g"]
+[ext_resource type="Texture2D" uid="uid://b8qqyck177pj6" path="res://fotogramas/Corazon/CorazonVacio.png" id="15_bmoby"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dr5is"]
 load_path = "res://.godot/imported/escenario1.png-4bb280f95eb4888f317bd510f9983266.ctex"
@@ -36,27 +30,81 @@ shader = ExtResource("6_10xg8")
 size = Vector2(1280, 720)
 center_offset = Vector3(640, 360, 0)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywopk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_8na4j")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_8ucqy")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_07yqm")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_dr07i")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_s5e1g")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_bmoby")
+}],
+"loop": true,
+"name": &"5",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7lgh"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.50980395)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktv61"]
+bg_color = Color(0.23137255, 0.60784316, 0.3019608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="Escena1" type="Node2D"]
 script = ExtResource("1_dr5is")
 
-[node name="VidaPersonaje" type="CanvasLayer" parent="."]
-
-[node name="BarraVidaJugador" type="ProgressBar" parent="VidaPersonaje"]
-offset_left = 39.0
-offset_top = 39.0
-offset_right = 479.0
-offset_bottom = 70.0
-theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
-theme_override_styles/background = SubResource("StyleBoxFlat_5o1io")
-theme_override_styles/fill = SubResource("StyleBoxFlat_k7ihp")
-value = 100.0
-
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 12.0
-offset_top = 5.0
-offset_right = 1040.0
-offset_bottom = 725.0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 1151.0
+offset_bottom = 644.0
 texture = ExtResource("1_g8504")
+expand_mode = 1
 
 [node name="Escenario1" type="Sprite2D" parent="."]
 visible = false
@@ -100,10 +148,42 @@ color = Color(0, 0, 0, 1)
 [node name="BossEscena1" parent="." instance=ExtResource("7_g8504")]
 position = Vector2(839, 314)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("9_0wnei")
+
+[node name="Corazon" type="Sprite2D" parent="CanvasLayer"]
+
+[node name="IconoCorazon" type="AnimatedSprite2D" parent="CanvasLayer/Corazon"]
+position = Vector2(40, 41.000004)
+scale = Vector2(0.3055281, 0.3117562)
+sprite_frames = SubResource("SpriteFrames_ywopk")
+animation = &"0"
+frame_progress = 0.84244835
+
+[node name="BarraVidaJugador" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 76.0
+offset_top = 25.0
+offset_right = 461.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_n7lgh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ktv61")
+value = 100.0
+
+[node name="LabelMunicion" type="Label" parent="CanvasLayer"]
+offset_left = 913.0
+offset_top = 30.0
+offset_right = 977.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 24
+text = "8/40"
+
 [node name="MenuPausa" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="PauseMenu" type="Control" parent="MenuPausa"]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,18 +226,102 @@ text = "OPCIONES"
 layout_mode = 2
 text = "SALIR"
 
-[node name="Spawner" type="Node2D" parent="."]
-position = Vector2(39, 39)
+[node name="MenuOpciones" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Control" type="Control" parent="MenuOpciones"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("11_k7ihp")
-arana_scene = ExtResource("4_3ccqb")
-fantasma_scene = ExtResource("2_rwuof")
+
+[node name="Label" type="Label" parent="MenuOpciones/Control"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -80.0
+offset_right = 11.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_k7ihp")
+theme_override_font_sizes/font_size = 44
+text = "OPCIONES"
+
+[node name="Label2" type="Label" parent="MenuOpciones/Control"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -321.0
+offset_top = -27.0
+offset_right = -149.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_k7ihp")
+theme_override_font_sizes/font_size = 32
+text = "Volumen"
+
+[node name="HSlider" type="HSlider" parent="MenuOpciones/Control"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -28.0
+offset_right = 108.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -40.0
+max_value = 0.0
+
+[node name="Atras" type="Button" parent="MenuOpciones/Control"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45700002
+anchor_top = 0.657
+anchor_right = 0.45700002
+anchor_bottom = 0.657
+offset_left = -30.46399
+offset_top = -15.735992
+offset_right = 31.53601
+offset_bottom = 15.264008
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_k7ihp")
+theme_override_font_sizes/font_size = 28
+text = "ATRAS"
+
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("12_n7lgh")
 
 [node name="Marker2D" type="Marker2D" parent="Spawner"]
-position = Vector2(676, 57)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawner"]
-position = Vector2(629, 503)
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
 
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Resume" to="MenuPausa/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Opciones" to="MenuPausa/PauseMenu" method="_on_opciones_pressed"]
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Exit" to="MenuPausa/PauseMenu" method="_on_exit_pressed"]
+[connection signal="pressed" from="MenuOpciones/Control/Atras" to="MenuOpciones/Control" method="_on_atras_pressed"]

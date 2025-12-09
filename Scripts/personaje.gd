@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 400.0
 var vida_max = 100
 var vida = vida_max
-var barra_vida
+var hud  # CAMBIO: Ahora usamos el HUD completo
 var invulnerable = false
 var tiempo_invulnerabilidad = 1.0
 
@@ -11,17 +11,36 @@ var tiempo_invulnerabilidad = 1.0
 @onready var collision = $CollisionShape2D
 
 func _ready():
-	barra_vida = get_tree().root.get_node_or_null("Escena1/CanvasLayer/BarraVidaJugador")
-	if barra_vida:
-		barra_vida.max_value = vida_max
-		barra_vida.value = vida
+	set_collision_layer_value(1, true)
+	set_collision_layer_value(2, false)
+	set_collision_layer_value(3, false)
+	set_collision_layer_value(4, false)
+	
+	set_collision_mask_value(1, false)
+	set_collision_mask_value(2, false)
+	set_collision_mask_value(3, true)
+	set_collision_mask_value(4, true)
+	
+	# CAMBIO: Obtener referencia al CanvasLayer completo
+	hud = get_tree().root.get_node_or_null("Escena1/CanvasLayer")
+	if hud:
+		hud.actualizar_vida(vida, vida_max)
+		print("HUD conectado correctamente")
+	else:
+		print("ADVERTENCIA: No se encontró CanvasLayer")
+	
 	add_to_group("player")
+	
+	print("=== JUGADOR CONFIGURADO ===")
+	print("Vida: ", vida, "/", vida_max)
+	print("Collision layer: ", collision_layer)
+	print("Collision mask: ", collision_mask)
+	print("===========================")
 
 func _physics_process(delta):
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * speed
 	
-	# Voltear sprite según dirección (sin animaciones por ahora)
 	if velocity.x > 0:
 		sprite.flip_h = false
 	elif velocity.x < 0:
@@ -29,29 +48,31 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	# Detectar colisiones con enemigos
 	for i in get_slide_collision_count():
 		var collision_info = get_slide_collision(i)
 		var collider = collision_info.get_collider()
 		
-		if collider.is_in_group("enemigo") and not invulnerable:
+		if collider and (collider.is_in_group("enemigos") or collider.is_in_group("boss")) and not invulnerable:
+			print("💢 Colisión con enemigo")
 			recibir_daño(10)
-			# Empujar al jugador hacia atrás
 			var knockback = (global_position - collider.global_position).normalized() * 200
 			velocity = knockback
 
-func recibir_daño(cantidad):
+func recibir_daño(cantidad: int):
 	if invulnerable:
+		print("  └─ Jugador invulnerable, daño ignorado")
 		return
+	
+	print("Jugador recibiendo daño: ", cantidad, " | Vida: ", vida, " -> ", vida - cantidad)
 	
 	vida -= cantidad
 	if vida < 0:
 		vida = 0
 	
-	if barra_vida:
-		barra_vida.value = vida
+	# CAMBIO: Actualizar HUD con el nuevo método
+	if hud:
+		hud.actualizar_vida(vida, vida_max)
 	
-	# Activar invulnerabilidad temporal
 	invulnerable = true
 	animacion_daño()
 	
@@ -63,7 +84,6 @@ func recibir_daño(cantidad):
 		morir()
 
 func animacion_daño():
-	# Parpadeo rojo
 	for i in range(3):
 		modulate = Color(1, 0.3, 0.3, 1)
 		await get_tree().create_timer(0.1).timeout
@@ -71,17 +91,29 @@ func animacion_daño():
 		await get_tree().create_timer(0.1).timeout
 
 func morir():
-	# Animación simple de muerte (fade out)
-	var tween = create_tween()
-	tween.tween_property(sprite, "modulate:a", 0.0, 1.0)
+	print("JUGADOR MURIÓ")
 	
+	# DETENER LA MÚSICA DEL NIVEL
+	var music_player = get_node_or_null("/root/MusicPlayer")
+	if music_player:
+		music_player.stop_music()
+		print("Música del nivel detenida")
+	
+	# Desactivar física inmediatamente
 	collision.set_deferred("disabled", true)
 	set_physics_process(false)
 	
+	# Animación de desvanecimiento
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate:a", 0.0, 1.0)
+	
 	await tween.finished
 	
-	# Mostrar pantalla de Game Over
-	var game_over_scene = load("res://game_over.tscn")
+	# Pequeña pausa antes de ir a Game Over
+	await get_tree().create_timer(0.3).timeout
+	
+	# Cambiar a escena de Game Over
+	var game_over_scene = load("res://Escenas/game_over.tscn")
 	if game_over_scene:
 		get_tree().change_scene_to_packed(game_over_scene)
 	else:
