@@ -1,16 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqpfbn1kw0n4q"]
+[gd_scene load_steps=8 format=3 uid="uid://bqpfbn1kw0n4q"]
 
 [ext_resource type="Script" uid="uid://bwemg05pxrfpg" path="res://Scripts/objeto_boss_1.gd" id="1_cc46n"]
-[ext_resource type="Texture2D" uid="uid://nr0fdcp7lfl1" path="res://icon.svg" id="2_u3x3v"]
+[ext_resource type="Texture2D" uid="uid://davhceap6h5ul" path="res://fotogramas/Bola de fuego/sprite_0.png" id="2_g0wl5"]
+[ext_resource type="Texture2D" uid="uid://dccq7f2bby78a" path="res://fotogramas/Bola de fuego/sprite_1.png" id="3_oj5ox"]
+[ext_resource type="Texture2D" uid="uid://c3uwybq4rcwp0" path="res://fotogramas/Bola de fuego/sprite_2.png" id="4_rbpbf"]
+[ext_resource type="Texture2D" uid="uid://cnffphppxev4g" path="res://fotogramas/Bola de fuego/sprite_3.png" id="5_wui2x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmu7v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g0wl5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_oj5ox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rbpbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wui2x")
+}],
+"loop": true,
+"name": &"bola_fuego",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cc46n"]
 radius = 60.827625
 
-[node name="ObjetoBoss1" type="Area2D"]
+[node name="ObjetoBoss1" type="CharacterBody2D"]
 script = ExtResource("1_cc46n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_u3x3v")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-8, -10.499992)
+scale = Vector2(5.75, 4.4687495)
+sprite_frames = SubResource("SpriteFrames_tmu7v")
+animation = &"bola_fuego"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cc46n")

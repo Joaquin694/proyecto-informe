@@ -6,7 +6,7 @@ var vida = vida_max
 var hud  # CAMBIO: Ahora usamos el HUD completo
 var invulnerable = false
 var tiempo_invulnerabilidad = 1.0
-
+@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 @onready var sprite = $Sprite2D
 @onready var collision = $CollisionShape2D
 
@@ -41,13 +41,13 @@ func _physics_process(delta):
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * speed
 	
-	if velocity.x > 0:
-		sprite.flip_h = false
-	elif velocity.x < 0:
-		sprite.flip_h = true
+	# --- NUEVO CÓDIGO DE ANIMACIÓN ---
+	actualizar_animacion(input_direction)
+	# ---------------------------------
 	
 	move_and_slide()
 	
+	# Lógica de colisión con enemigos
 	for i in get_slide_collision_count():
 		var collision_info = get_slide_collision(i)
 		var collider = collision_info.get_collider()
@@ -57,6 +57,30 @@ func _physics_process(delta):
 			recibir_daño(10)
 			var knockback = (global_position - collider.global_position).normalized() * 200
 			velocity = knockback
+
+# Esta función decide qué animación poner según hacia dónde te muevas
+func actualizar_animacion(direccion: Vector2):
+	if direccion == Vector2.ZERO:
+		sprite.stop()
+		# Opcional: Si quieres que se quede en el frame "quieto" (generalmente el 0 o 1)
+		sprite.frame = 1 
+	else:
+		# Si se está moviendo, nos aseguramos que se reproduzca
+		if not sprite.is_playing():
+			sprite.play()
+		
+		if abs(direccion.x) > 0:
+			if direccion.x > 0:
+				sprite.play("derechaanimacion")
+			else:
+				sprite.play("isquierdaanimacion") # Nota: Escrito tal cual tu imagen
+		
+		# Si no se mueve en X, pero sí en Y, usamos arriba/abajo
+		elif abs(direccion.y) > 0:
+			if direccion.y > 0:
+				sprite.play("abajoanimacion")
+			else:
+				sprite.play("arribaanimacion")
 
 func recibir_daño(cantidad: int):
 	if invulnerable:

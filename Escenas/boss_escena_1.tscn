@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://cbr7qpq7di6p1" path="res://fotogramas/boss/quieto/boss1.png" id="10_pmeow"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_whwbr"]
-radius = 49.0
-height = 128.0
+radius = 94.0
+height = 188.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s82o7"]
 animations = [{
@@ -69,7 +69,7 @@ shape = SubResource("CapsuleShape2D_whwbr")
 autostart = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(39.5, 39)
+position = Vector2(2, 0)
 scale = Vector2(2.234375, 2.21875)
 sprite_frames = SubResource("SpriteFrames_s82o7")
 animation = &"quieto"
