@@ -9,7 +9,7 @@ extends Node2D
 @export var puntos_spawn: Array[Marker2D] = []
 
 var oleada_actual = 0
-var enemigos_por_oleada = 4
+var enemigos_por_oleada = 3
 var tiempo_transcurrido = 0.0
 
 func _ready():

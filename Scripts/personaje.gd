@@ -81,7 +81,7 @@ func morir():
 	await tween.finished
 	
 	# Mostrar pantalla de Game Over
-	var game_over_scene = load("res://Escenas/game_over.tscn")
+	var game_over_scene = load("res://game_over.tscn")
 	if game_over_scene:
 		get_tree().change_scene_to_packed(game_over_scene)
 	else:

@@ -79,7 +79,7 @@ shape = SubResource("RectangleShape2D_iyesi")
 position = Vector2(53, 35.5)
 scale = Vector2(4.3125, 3.21875)
 sprite_frames = SubResource("SpriteFrames_2wauc")
-animation = &"derecha"
+animation = &"quieto"
 
 [node name="BarraVida" type="ProgressBar" parent="."]
 offset_left = 1.0
