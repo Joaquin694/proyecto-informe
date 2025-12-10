@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cynohqt7v76n6"]
+[gd_scene load_steps=12 format=4 uid="uid://b50qlckaa3yul"]
 
 [ext_resource type="TileSet" uid="uid://75nbcmoodjup" path="res://tiles/escena_1.tres" id="1_qwqrc"]
 [ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Escenas/personaje.tscn" id="2_xlp7v"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dsn3fkebc8c3x" path="res://Scripts/menu_paused.gd" id="5_1kwhq"]
 [ext_resource type="FontFile" uid="uid://bnjukcosuv435" path="res://Minecrafter.Reg.ttf" id="6_1f2m0"]
 [ext_resource type="Script" uid="uid://dyrxfm1nmo4hi" path="res://Scripts/Menu_Opciones.gd" id="7_bot0m"]
-[ext_resource type="Script" uid="uid://d22sthcyqkbsj" path="res://Escenas/spw_zombie.gd" id="8_ql3nl"]
+[ext_resource type="Script" uid="uid://d22sthcyqkbsj" path="res://Scripts/spw_zombie.gd" id="8_ql3nl"]
 [ext_resource type="PackedScene" uid="uid://jijnh14ncxsu" path="res://Escenas/zombie.tscn" id="9_0w31f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_id284"]
@@ -30,7 +30,7 @@ tile_map_data = PackedByteArray("AAAGAP3/AwAAAAQAAAAGAP7/AwAAAAUAAAAHAP3/AwABAAQ
 tile_set = ExtResource("1_qwqrc")
 
 [node name="Personaje" parent="." instance=ExtResource("2_xlp7v")]
-position = Vector2(37, 34)
+position = Vector2(39, 36)
 scale = Vector2(0.3, 0.3)
 
 [node name="Camera2D" type="Camera2D" parent="Personaje"]
@@ -189,11 +189,10 @@ text = "ATRAS"
 visible = false
 color = Color(0, 0, 0, 1)
 
-[node name="Spw_Zombie" type="Node2D" parent="."]
-visible = false
+[node name="spw_zombie" type="Node2D" parent="."]
 script = ExtResource("8_ql3nl")
 zombie_scene = ExtResource("9_0w31f")
-areas_spawn = Array[Rect2]([Rect2(70, -100, 175, 60), Rect2(310, -100, 110, 70), Rect2(550, -100, 250, 70), Rect2(480, 100, 100, 80), Rect2(110, 220, 160, 250)])
+areas_spawn = Array[Rect2]([Rect2(100, -100, 100, 70), Rect2(310, -100, 90, 70), Rect2(550, -100, 250, 70), Rect2(480, 100, 100, 70), Rect2(100, 220, 180, 250)])
 
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Resume" to="MenuPausa/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="MenuPausa/PauseMenu/VBoxContainer/Opciones" to="MenuPausa/PauseMenu" method="_on_opciones_pressed"]
