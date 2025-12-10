@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://b50qlckaa3yul"]
+[gd_scene load_steps=18 format=4 uid="uid://b50qlckaa3yul"]
 
+[ext_resource type="Script" uid="uid://c5auxiiy22n4s" path="res://Escenas/escena_2.gd" id="1_nk42s"]
 [ext_resource type="TileSet" uid="uid://75nbcmoodjup" path="res://tiles/escena_1.tres" id="1_qwqrc"]
 [ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Escenas/personaje.tscn" id="2_xlp7v"]
 [ext_resource type="Shader" uid="uid://c1e3putff3rf3" path="res://Escenas/escena_1.gdshader" id="3_ql3nl"]
@@ -23,6 +24,8 @@ size = Vector2(1280, 720)
 center_offset = Vector3(640, 360, 0)
 
 [node name="Escena2" type="Node2D"]
+script = ExtResource("1_nk42s")
+metadata/_edit_group_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-3, -3)
@@ -57,8 +60,8 @@ position = Vector2(567, 322)
 mesh = SubResource("QuadMesh_gv0nd")
 
 [node name="PointLight2D" type="PointLight2D" parent="Personaje"]
-position = Vector2(16.666656, 6.666668)
-scale = Vector2(0.5847981, 0.25329587)
+position = Vector2(60.000023, 3.3333397)
+scale = Vector2(0.89815265, 0.54346716)
 energy = 0.5
 texture = ExtResource("4_0w31f")
 

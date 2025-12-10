@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://dt6oktdom34ca"]
+[gd_scene load_steps=13 format=4 uid="uid://dt6oktdom34ca"]
 
 [ext_resource type="Texture2D" uid="uid://dnm20rf5i2wf1" path="res://fotogramas/personaje/House_Tileset.png" id="1_ywlat"]
 [ext_resource type="Texture2D" uid="uid://lb1frfwkvfpy" path="res://fotogramas/personaje/Holiday-Living-Room-Sheet.png" id="2_h0yxb"]
 [ext_resource type="Texture2D" uid="uid://b2np87kblj8hd" path="res://Imagenes/Blanco.jpg" id="3_h0yxb"]
 [ext_resource type="PackedScene" uid="uid://cbpnnx4sp1w5a" path="res://Escenas/enemigo.tscn" id="4_h6y76"]
 [ext_resource type="PackedScene" uid="uid://b0ta1lhden08u" path="res://Escenas/personaje.tscn" id="5_c2jbx"]
+[ext_resource type="Shader" uid="uid://c1e3putff3rf3" path="res://Escenas/escena_1.gdshader" id="6_bkvr8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h6y76"]
 texture = ExtResource("1_ywlat")
@@ -108,6 +109,13 @@ sources/0 = SubResource("TileSetAtlasSource_h6y76")
 sources/1 = SubResource("TileSetAtlasSource_c2jbx")
 sources/3 = SubResource("TileSetAtlasSource_bkvr8")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghfe5"]
+shader = ExtResource("6_bkvr8")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jlswd"]
+size = Vector2(1280, 720)
+center_offset = Vector3(640, 360, 0)
+
 [node name="escenario_3" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -115,10 +123,19 @@ tile_map_data = PackedByteArray("AAABAAAAAwAAAAEAAAABAAEAAwAAAAAAAAACAAAAAwABAAE
 tile_set = SubResource("TileSet_bkvr8")
 
 [node name="Enemigo" parent="." instance=ExtResource("4_h6y76")]
-position = Vector2(117, 396)
-metadata/_edit_group_ = true
+position = Vector2(969, 296)
+scale = Vector2(1.0134115, 1.0837092)
 
 [node name="Personaje" parent="." instance=ExtResource("5_c2jbx")]
-position = Vector2(382, 440)
+position = Vector2(88, 317)
+scale = Vector2(0.44910216, 0.52975696)
 
 [node name="Camera2D" type="Camera2D" parent="Personaje"]
+position = Vector2(1, -8)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Personaje/Camera2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Personaje/Camera2D/CanvasLayer"]
+material = SubResource("ShaderMaterial_ghfe5")
+position = Vector2(567, 322)
+mesh = SubResource("QuadMesh_jlswd")

@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready():
-	MusicPlayer.play_nivel()
+	MusicPlayer.play_nivel_1()
 
 func _on_options_pressed():
 	SceneManager.previous_scene = "res://Escenas/escena_1.tscn"

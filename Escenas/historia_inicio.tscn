@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2vfordcsvxp5"]
+
+[ext_resource type="Script" uid="uid://jmrcpt2qcf7q" path="res://Scripts/historia_inicio.gd" id="1_74pyo"]
+[ext_resource type="Texture2D" uid="uid://bs7qru52wc50r" path="res://Imagenes/WhatsApp Image 2025-12-09 at 8.45.53 PM.jpeg" id="2_ecewx"]
+[ext_resource type="Texture2D" uid="uid://crj5cmu8pbyjp" path="res://Imagenes/WhatsApp Image 2025-12-09 at 8.46.04 PM.jpeg" id="3_aqc7p"]
+[ext_resource type="Texture2D" uid="uid://dkkgex2objvk6" path="res://Imagenes/WhatsApp Image 2025-12-09 at 8.53.43 PM.jpeg" id="4_qmxuh"]
+
+[node name="HistoriaInicio" type="Node2D"]
+position = Vector2(17, 5)
+script = ExtResource("1_74pyo")
+
+[node name="1" type="Sprite2D" parent="."]
+position = Vector2(548, 320)
+scale = Vector2(0.83691406, 0.73384255)
+texture = ExtResource("2_ecewx")
+
+[node name="2" type="Sprite2D" parent="."]
+position = Vector2(548, 318.25)
+scale = Vector2(0.83203125, 0.73971796)
+texture = ExtResource("3_aqc7p")
+
+[node name="3" type="Sprite2D" parent="."]
+position = Vector2(542.5, 321)
+scale = Vector2(0.8173828, 0.7403055)
+texture = ExtResource("4_qmxuh")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 846.0
+offset_top = 569.0
+offset_right = 962.0
+offset_bottom = 619.0
+text = "SIGUIENTE"
