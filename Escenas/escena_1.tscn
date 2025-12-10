@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://dsn3fkebc8c3x" path="res://Scripts/menu_paused.gd" id="9_5o1io"]
 [ext_resource type="FontFile" uid="uid://bnjukcosuv435" path="res://Minecrafter.Reg.ttf" id="10_k7ihp"]
 [ext_resource type="Script" uid="uid://dyrxfm1nmo4hi" path="res://Scripts/Menu_Opciones.gd" id="11_k7ihp"]
-[ext_resource type="Script" uid="uid://dfniavo2vdp8m" path="res://Escenas/spw_aleatorio.gd" id="13_ktv61"]
+[ext_resource type="Script" uid="uid://dfniavo2vdp8m" path="res://Scripts/spw_aleatorio.gd" id="13_ktv61"]
 [ext_resource type="TileSet" uid="uid://75nbcmoodjup" path="res://tiles/escena_1.tres" id="19_8na4j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g8504"]
