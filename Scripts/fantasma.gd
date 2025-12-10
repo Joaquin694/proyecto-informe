@@ -3,10 +3,9 @@ extends CharacterBody2D
 var vida_max = 50
 var vida = vida_max
 var ha_recibido_daño = false
-
 @export var speed: float = 80.0
-
 var player
+
 @onready var anim = $AnimatedSprite2D
 @onready var barra_vida: ProgressBar = $BarraVida
 
@@ -16,8 +15,9 @@ func _ready():
 	set_collision_layer_value(2, false)
 	set_collision_layer_value(3, true)   # Capa enemigos
 	
-	set_collision_mask_value(1, true)
-	set_collision_mask_value(2, true)
+	set_collision_mask_value(1, true)    # Detecta jugador
+	set_collision_mask_value(2, true)    # Detecta proyectiles
+	set_collision_mask_value(4, true)    # ✅ NUEVO: Detecta paredes
 	
 	add_to_group("enemigos")
 	
@@ -46,8 +46,22 @@ func _physics_process(delta):
 	
 	var direction = (player.global_position - global_position).normalized()
 	velocity = direction * speed
+	
 	move_and_slide()
 	
+	# ✅ NUEVO: Empujar si está atascado en pared
+	if get_slide_collision_count() > 0:
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			var collider = collision.get_collider()
+			
+			# Si choca con pared, intentar rodearla
+			if collider is TileMapLayer or collider is StaticBody2D:
+				# Empujar perpendicular a la normal de colisión
+				var push = collision.get_normal() * speed
+				velocity += push
+	
+	# Animaciones
 	if anim:
 		if abs(velocity.x) > 10:
 			if velocity.x > 0:
@@ -57,9 +71,7 @@ func _physics_process(delta):
 		else:
 			anim.play("quieto")
 
-func recibir_daño(cantidad: int):
-	print("🔴 FANTASMA RECIBIENDO DAÑO: ", cantidad, " | Vida: ", vida, " -> ", vida - cantidad)
-	
+func recibir_daño(cantidad: int):		
 	vida -= cantidad
 	
 	if not ha_recibido_daño and barra_vida:

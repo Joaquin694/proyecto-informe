@@ -1,0 +1,106 @@
+[gd_scene load_steps=11 format=3 uid="uid://cof0gd68qb2l6"]
+
+[ext_resource type="Script" uid="uid://br7xdhnowieh1" path="res://Scripts/BarraVida.gd" id="1_3gcoy"]
+[ext_resource type="Texture2D" uid="uid://bcw5ckn4couf3" path="res://fotogramas/Corazon/CorazonVacio6.png" id="2_7bggt"]
+[ext_resource type="Texture2D" uid="uid://b3kuqcu61juib" path="res://fotogramas/Corazon/CorazonVacio5.png" id="3_cyhlk"]
+[ext_resource type="Texture2D" uid="uid://bkibbj2awgrut" path="res://fotogramas/Corazon/CorazonVacio4.png" id="4_v4gv8"]
+[ext_resource type="Texture2D" uid="uid://b5b3f7r8jw0ea" path="res://fotogramas/Corazon/CorazonVacio3.png" id="5_6y70t"]
+[ext_resource type="Texture2D" uid="uid://cbpoxheruvj82" path="res://fotogramas/Corazon/CorazonVacio2.png" id="6_17036"]
+[ext_resource type="Texture2D" uid="uid://b8qqyck177pj6" path="res://fotogramas/Corazon/CorazonVacio.png" id="7_jxc7h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywopk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7bggt")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cyhlk")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_v4gv8")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_6y70t")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_17036")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_jxc7h")
+}],
+"loop": true,
+"name": &"5",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7lgh"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.50980395)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktv61"]
+bg_color = Color(0.23137255, 0.60784316, 0.3019608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_3gcoy")
+
+[node name="Corazon" type="Sprite2D" parent="."]
+
+[node name="IconoCorazon" type="AnimatedSprite2D" parent="Corazon"]
+position = Vector2(40, 41.000004)
+scale = Vector2(0.3055281, 0.3117562)
+sprite_frames = SubResource("SpriteFrames_ywopk")
+animation = &"0"
+frame_progress = 0.84244835
+
+[node name="BarraVidaJugador" type="ProgressBar" parent="."]
+offset_left = 76.0
+offset_top = 25.0
+offset_right = 461.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_n7lgh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ktv61")
+value = 100.0
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelMunicion" type="Label" parent="."]
+offset_left = 913.0
+offset_top = 30.0
+offset_right = 977.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 24
+text = "8/40"
+metadata/_edit_use_anchors_ = true

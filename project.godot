@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 AudioConfig="*res://Scripts/AudioConfig.gd"
 MusicPlayer="*res://Scripts/MusicPlayer.gd"
 SceneManager="*res://Scripts/SceneManager.gd"
+HUD="*res://Escenas/BarraVida.tscn"
 
 [editor]
 

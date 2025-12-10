@@ -1,6 +1,7 @@
 extends Node2D
 
 const BALA = preload("res://Escenas/bala.tscn")
+
 @onready var aparicion_bala: Marker2D = $Marker2D
 @onready var sonido_disparo: AudioStreamPlayer2D = $SonidoDisparo
 @onready var sonido_recarga: AudioStreamPlayer2D = $SonidoRecarga
@@ -12,17 +13,15 @@ var balas_reserva = 40
 var recargando = false
 var tiempo_recarga = 2.0
 
-# CAMBIO: Referencia al HUD
-var hud
 
 func _ready():
-	# CAMBIO: Obtener referencia al CanvasLayer
-	hud = get_tree().root.get_node_or_null("Escena1/CanvasLayer")
-	if hud:
-		hud.actualizar_municion(balas_actuales, balas_reserva, false)
-		print("Arma conectada al HUD")
+	# Acceder al HUD global (Autoload)
+	if HUD:
+		HUD.actualizar_municion(balas_actuales, balas_reserva, false)
+		print("✅ Arma conectada al HUD (Autoload)")
 	else:
-		print("ADVERTENCIA: No se encontró CanvasLayer")
+		print("❌ ERROR: No se encontró HUD Autoload")
+
 
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -50,29 +49,36 @@ func _process(delta: float) -> void:
 		elif balas_reserva <= 0:
 			print("¡Sin munición de reserva!")
 
+
 func disparar():
 	# Crear y posicionar la bala
 	var bullet_instance = BALA.instantiate()
 	get_tree().root.add_child(bullet_instance)
+	
 	bullet_instance.global_position = aparicion_bala.global_position
 	bullet_instance.rotation = rotation
-	
-	# Reproducir sonido de disparo
+
+	# ⭐ NUEVO: aplicar escala del arma (que hereda la del personaje)
+	if bullet_instance.has_method("aplicar_escala"):
+		bullet_instance.aplicar_escala(global_scale)
+
+	# Sonido de disparo
 	if sonido_disparo:
 		sonido_disparo.play()
 	
 	# Reducir munición
 	balas_actuales -= 1
 	
-	# CAMBIO: Actualizar HUD
-	if hud:
-		hud.actualizar_municion(balas_actuales, balas_reserva, false)
+	# Actualizar HUD
+	if HUD:
+		HUD.actualizar_municion(balas_actuales, balas_reserva, false)
 	
 	print("Balas: ", balas_actuales, "/", balas_max, " | Reserva: ", balas_reserva)
 	
-	# Recarga automática si te quedas sin balas
+	# Recarga automática si se acaban las balas
 	if balas_actuales <= 0 and balas_reserva > 0:
 		iniciar_recarga()
+
 
 func iniciar_recarga():
 	if recargando:
@@ -81,18 +87,18 @@ func iniciar_recarga():
 	print("Recargando...")
 	recargando = true
 	
-	# CAMBIO: Actualizar HUD para mostrar "RECARGANDO..."
-	if hud:
-		hud.actualizar_municion(balas_actuales, balas_reserva, true)
+	# Actualizar HUD
+	if HUD:
+		HUD.actualizar_municion(balas_actuales, balas_reserva, true)
 	
-	# Reproducir sonido de recarga
+	# Sonido
 	if sonido_recarga:
 		sonido_recarga.play()
 	
-	# Esperar tiempo de recarga
+	# Esperar
 	await get_tree().create_timer(tiempo_recarga).timeout
 	
-	# Calcular cuántas balas recargar
+	# Recargar
 	var balas_necesarias = balas_max - balas_actuales
 	var balas_a_recargar = min(balas_necesarias, balas_reserva)
 	
@@ -101,15 +107,17 @@ func iniciar_recarga():
 	
 	recargando = false
 	
-	# CAMBIO: Actualizar HUD
-	if hud:
-		hud.actualizar_municion(balas_actuales, balas_reserva, false)
+	# Actualizar HUD
+	if HUD:
+		HUD.actualizar_municion(balas_actuales, balas_reserva, false)
 	
 	print("¡Recarga completa! Balas: ", balas_actuales, "/", balas_max, " | Reserva: ", balas_reserva)
 
+
 func añadir_municion(cantidad: int):
 	balas_reserva += cantidad
-	# CAMBIO: Actualizar HUD
-	if hud:
-		hud.actualizar_municion(balas_actuales, balas_reserva, false)
+	
+	if HUD:
+		HUD.actualizar_municion(balas_actuales, balas_reserva, false)
+	
 	print("Munición recogida! Reserva: ", balas_reserva)

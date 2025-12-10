@@ -7,6 +7,10 @@ extends CanvasLayer
 var vida_anterior = 100
 
 func _ready():
+	# Agregar al grupo para acceso por grupo (opcional, pero útil)
+	add_to_group("hud")
+	
+	# Configurar valores iniciales
 	if barra_vida:
 		barra_vida.max_value = 100
 		barra_vida.value = 100
@@ -24,13 +28,50 @@ func _ready():
 		print("✅ Corazón inicializado en animación '0' (lleno)")
 	else:
 		print("❌ ERROR: No se encontró IconoCorazon")
+	
+	# Conectar señal para detectar cambios de escena
+	get_tree().root.child_entered_tree.connect(_on_scene_changed)
+	
+	# Verificar escena actual al iniciar
+	verificar_visibilidad_hud()
+	
+	print("🎮 HUD inicializado como Autoload")
+
+# ===== SISTEMA DE VISIBILIDAD =====
+
+func verificar_visibilidad_hud():
+	await get_tree().process_frame
+	
+	# Si hay un jugador en la escena, mostrar HUD
+	var jugador = get_tree().get_first_node_in_group("player")
+	
+	if jugador:
+		mostrar_hud()
+	else:
+		ocultar_hud()
+
+func _on_scene_changed(node):
+	await get_tree().process_frame
+	verificar_visibilidad_hud()
+
+func mostrar_hud():
+	visible = true
+	print("🎮 HUD visible")
+
+func ocultar_hud():
+	visible = false
+	print("🚫 HUD oculto")
+
+# ===== ACTUALIZACIÓN DE VIDA =====
 
 func actualizar_vida(vida_actual: int, vida_maxima: int):
 	if not barra_vida:
+		print("⚠ ERROR: barra_vida no existe")
 		return
 	
-	vida_anterior = barra_vida.value
+	print("💚 Actualizando HUD - Vida: ", vida_actual, "/", vida_maxima)
 	
+	vida_anterior = barra_vida.value
 	barra_vida.max_value = vida_maxima
 	
 	var tween = create_tween()
@@ -39,7 +80,6 @@ func actualizar_vida(vida_actual: int, vida_maxima: int):
 	tween.tween_property(barra_vida, "value", vida_actual, 0.3)
 	
 	actualizar_estilo_barra(vida_actual, vida_maxima)
-	
 	actualizar_animacion_corazon(vida_actual, vida_maxima)
 	
 	if vida_actual < vida_anterior:
@@ -52,25 +92,28 @@ func actualizar_animacion_corazon(vida_actual: int, vida_maxima: int):
 		return
 	
 	var porcentaje = float(vida_actual) / float(vida_maxima)
-	
 	var animacion = "0"
 	
-	if porcentaje > 0.83:  
+	if porcentaje > 0.83:
 		animacion = "0"
-	elif porcentaje > 0.66:  
+	elif porcentaje > 0.66:
 		animacion = "1"
-	elif porcentaje > 0.50:  
+	elif porcentaje > 0.50:
 		animacion = "2"
-	elif porcentaje > 0.33:  
+	elif porcentaje > 0.33:
 		animacion = "3"
-	elif porcentaje > 0.16:  
+	elif porcentaje > 0.16:
 		animacion = "4"
-	else:  
+	else:
 		animacion = "5"
 	
 	icono_corazon.play(animacion)
+	print("❤ Corazón actualizado a animación: ", animacion)
 
 func actualizar_estilo_barra(vida_actual: int, vida_maxima: int):
+	if not barra_vida:
+		return
+		
 	var porcentaje = float(vida_actual) / float(vida_maxima)
 	
 	var style_fill = StyleBoxFlat.new()
@@ -89,7 +132,8 @@ func actualizar_estilo_barra(vida_actual: int, vida_maxima: int):
 	
 	barra_vida.add_theme_stylebox_override("fill", style_fill)
 
-# Actualizar munición
+# ===== ACTUALIZACIÓN DE MUNICIÓN =====
+
 func actualizar_municion(balas_actuales: int, balas_reserva: int, recargando: bool):
 	if not label_municion:
 		return
@@ -111,13 +155,16 @@ func actualizar_municion(balas_actuales: int, balas_reserva: int, recargando: bo
 		else:
 			label_municion.add_theme_color_override("font_color", Color(1, 1, 1))
 
-# Efecto de pulso rojo cuando recibes daño
+# ===== EFECTOS VISUALES =====
+
 func efecto_daño():
+	if not barra_vida:
+		return
+		
 	var tween = create_tween()
 	tween.tween_property(barra_vida, "modulate", Color(1, 0.3, 0.3), 0.1)
 	tween.tween_property(barra_vida, "modulate", Color(1, 1, 1), 0.3)
 
-# Flash de color en el corazón cuando recibes daño
 func animar_corazon():
 	if not icono_corazon:
 		return

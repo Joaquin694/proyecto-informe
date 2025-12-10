@@ -1,23 +1,136 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0ta1lhden08u"]
+[gd_scene load_steps=18 format=3 uid="uid://b0ta1lhden08u"]
 
 [ext_resource type="Script" uid="uid://dw6513l3w5bjf" path="res://Scripts/personaje.gd" id="1_ffn0g"]
-[ext_resource type="Texture2D" uid="uid://nr0fdcp7lfl1" path="res://icon.svg" id="2_ull15"]
+[ext_resource type="Texture2D" uid="uid://b50tww2d44df3" path="res://fotogramas/personaje/character_17-24.png" id="2_s1y1a"]
 [ext_resource type="PackedScene" uid="uid://d286smqmjq10u" path="res://Escenas/arma.tscn" id="3_ull15"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwvsk"]
-size = Vector2(110, 110)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpgkb"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(16, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0nbt"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6k3q"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(32, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1y1a"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(16, 60, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytpom"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(32, 60, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abn35"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(0, 60, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mc8t"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(16, 40, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we8kp"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(32, 40, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqv1q"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(0, 40, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eonq6"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(16, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h41w3"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(32, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypn5l"]
+atlas = ExtResource("2_s1y1a")
+region = Rect2(0, 20, 16, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0a5x8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpgkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0nbt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6k3q")
+}],
+"loop": false,
+"name": &"abajoanimacion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1y1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytpom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abn35")
+}],
+"loop": true,
+"name": &"arribaanimacion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mc8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we8kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqv1q")
+}],
+"loop": true,
+"name": &"derechaanimacion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eonq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h41w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypn5l")
+}],
+"loop": true,
+"name": &"isquierdaanimacion",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m5ld0"]
+radius = 30.0
+height = 94.0
 
 [node name="Personaje" type="CharacterBody2D" groups=["player"]]
+position = Vector2(1, -4)
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_ffn0g")
-metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ull15")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.9999981, 0.5)
+scale = Vector2(6.375, 5.55)
+sprite_frames = SubResource("SpriteFrames_0a5x8")
+animation = &"isquierdaanimacion"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_vwvsk")
+position = Vector2(2, 8.999998)
+scale = Vector2(0.9999998, 0.9999999)
+shape = SubResource("CapsuleShape2D_m5ld0")
 
 [node name="Arma" parent="." instance=ExtResource("3_ull15")]
-position = Vector2(51, -38)
+position = Vector2(14, 14)
