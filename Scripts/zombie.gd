@@ -7,11 +7,13 @@ var ha_recibido_daño = false
 var player
 var atacando = false
 
-
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var barra_vida: ProgressBar = $BarraVida
 
 func _ready():
+	# ⚠️ CRÍTICO: Configurar motion_mode para juegos 2D top-down
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	
 	# Collision layer y mask
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(2, false)
@@ -33,13 +35,13 @@ func _ready():
 		barra_vida.value = vida
 		barra_vida.visible = false   
 	
-	print("===== ENEMIGO NUEVO DEBUG =====")
+	print("===== ZOMBIE SPAWN =====")
 	print("Posición: ", global_position)
-	print("En grupo enemigos: ", is_in_group("enemigos"))
-	print("Collision Layer: ", collision_layer)
-	print("Collision Mask : ", collision_mask)
-	print("================================")
-
+	print("Motion Mode: ", motion_mode)
+	print("Jugador: ", "✅" if player else "❌")
+	if player:
+		print("Distancia: ", global_position.distance_to(player.global_position))
+	print("========================")
 
 func _physics_process(delta):
 	if atacando:
@@ -47,18 +49,20 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 	
+	# Verificar jugador
 	if not player or not is_instance_valid(player):
 		player = get_tree().get_first_node_in_group("player")
 		if not player:
 			return
 	
-	
+	# Calcular dirección
 	var direction = (player.global_position - global_position).normalized()
 	velocity = direction * speed
 	
+	# MOVER - esto debería funcionar ahora
 	move_and_slide()
 	
-	
+	# Manejo de colisiones con paredes
 	if get_slide_collision_count() > 0:
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
@@ -68,10 +72,7 @@ func _physics_process(delta):
 				var push = collision.get_normal() * speed
 				velocity += push
 	
-	
 	_actualizar_animacion()
-
-
 
 func _actualizar_animacion():
 	if atacando:
@@ -79,13 +80,11 @@ func _actualizar_animacion():
 	
 	if abs(velocity.x) > 10:
 		if velocity.x > 0:
-			anim.play("caminar_derecha")
+			anim.play("derecha")
 		else:
-			anim.play("caminar_izquierda")
+			anim.play("izquierda")
 	else:
 		anim.play("quieto")
-
-
 
 func atacar():
 	if atacando:
@@ -93,15 +92,15 @@ func atacar():
 	
 	atacando = true
 	
-	if player.global_position.x > global_position.x:
-		anim.play("atacar_derecha")
-	else:
-		anim.play("atacar_izquierda")
+	if player and is_instance_valid(player):
+		if player.global_position.x > global_position.x:
+			anim.play("at_derecha")
+		else:
+			anim.play("at_izquierda")
 	
 	await anim.animation_finished
 	
 	atacando = false
-
 
 func recibir_daño(cantidad: int):
 	vida -= cantidad
@@ -117,7 +116,6 @@ func recibir_daño(cantidad: int):
 	if vida <= 0:
 		_morir()
 
-
 func _morir():
-	print("💀 ENEMIGO MURIÓ")
+	print("💀 ZOMBIE MURIÓ")
 	queue_free()

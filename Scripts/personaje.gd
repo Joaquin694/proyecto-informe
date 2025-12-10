@@ -21,7 +21,7 @@ func _ready():
 	set_collision_layer_value(3, false)
 	set_collision_layer_value(4, false)
 	
-	set_collision_mask_value(1, false)
+	set_collision_mask_value(1, true)
 	set_collision_mask_value(2, false)
 	set_collision_mask_value(3, true)
 	set_collision_mask_value(4, true)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rs8ae1ns5ogb"
-path="res://.godot/imported/sprite_2.png-ead20919be968aaf727f45206df2df1b.ctex"
+uid="uid://b83jtampegrei"
+path="res://.godot/imported/sprite_1.png-1df7aa209d8650de36270882a96a1211.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://fotogramas/boss/derecha/sprite_2.png"
-dest_files=["res://.godot/imported/sprite_2.png-ead20919be968aaf727f45206df2df1b.ctex"]
+source_file="res://fotogramas/boss2/derecha/sprite_1.png"
+dest_files=["res://.godot/imported/sprite_1.png-1df7aa209d8650de36270882a96a1211.ctex"]
 
 [params]
 

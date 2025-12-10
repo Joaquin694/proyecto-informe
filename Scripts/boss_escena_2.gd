@@ -18,24 +18,7 @@ var jugador_en_rango: bool = false
 @onready var attack_timer_ref: Timer = null
 
 func _ready():
-	print("🟢 Boss inicializado en posición: ", global_position)
-	
-	# 🔥 FORZAR VISIBILIDAD DEL BOSS
-	visible = true
-	show()
-	modulate = Color(1, 1, 1, 1)
-	z_index = 10
-	
-	# Verificar y forzar visibilidad del sprite
-	if anim:
-		anim.visible = true
-		anim.show()
-		anim.modulate = Color(1, 1, 1, 1)
-		print("✅ AnimatedSprite2D configurado como visible")
-	else:
-		print("❌ ERROR: No se encontró AnimatedSprite2D")
-	
-	# Capas de colisión
+	# Capas
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(2, false)
 	set_collision_layer_value(3, true)
@@ -50,12 +33,8 @@ func _ready():
 	
 	# Buscar jugador
 	player = get_tree().get_first_node_in_group("player")
-	if player:
-		print("✅ Jugador encontrado")
-	else:
-		print("⚠️ Jugador no encontrado")
 	
-	# Configurar timer
+	# Timer de ataque: crearlo si no existe
 	if has_node("AttackTimer"):
 		attack_timer_ref = $AttackTimer
 	else:
@@ -67,20 +46,17 @@ func _ready():
 	
 	attack_timer_ref.wait_time = tiempo_ataque
 	
+	# Conectar señal (Godot 4 usa Callable)
 	if not attack_timer_ref.timeout.is_connected(_on_attack_timeout):
 		attack_timer_ref.timeout.connect(_on_attack_timeout)
 	
 	attack_timer_ref.stop()
 	
-	# Iniciar animación
 	if anim:
-		if anim.sprite_frames and anim.sprite_frames.has_animation("quieto"):
-			anim.play("quieto")
-			print("✅ Animación 'quieto' iniciada")
-		else:
-			print("⚠️ No existe la animación 'quieto'")
+		anim.play("quieto")
 
 func _physics_process(delta):
+	# Refrescar referencia al jugador si es necesario
 	if not player or not is_instance_valid(player):
 		player = get_tree().get_first_node_in_group("player")
 		if not player:
@@ -88,22 +64,27 @@ func _physics_process(delta):
 	
 	var distancia = global_position.distance_to(player.global_position)
 	
-	# Movimiento y ataque
+	# Movimiento: si está dentro del rango, mover hacia el jugador
 	if distancia <= rango_vision:
+		# Si el jugador entró en rango, arrancar el timer
 		if not jugador_en_rango:
 			jugador_en_rango = true
-			if attack_timer_ref and puede_disparar:
+			if attack_timer_ref:
 				attack_timer_ref.start()
 		
 		var direction = (player.global_position - global_position).normalized()
 		velocity = direction * speed
 		
-		if anim and abs(velocity.x) > 10:
+		# Animaciones
+		if abs(velocity.x) > 10:
 			if velocity.x > 0:
-				anim.play("derecha")
+				if anim:
+					anim.play("derecha")
 			else:
-				anim.play("izquierda")
+				if anim:
+					anim.play("izquierda")
 	else:
+		# Si el jugador salió del rango, detener el timer
 		if jugador_en_rango:
 			jugador_en_rango = false
 			if attack_timer_ref:
@@ -122,6 +103,10 @@ func _physics_process(delta):
 		if collider and collider.is_in_group("enemigos"):
 			velocity += (global_position - collider.global_position).normalized() * 20
 
+# -----------------------------------------------------------
+# ATAQUE DEL JEFE
+# -----------------------------------------------------------
+
 func _on_attack_timeout():
 	if not puede_disparar:
 		return
@@ -134,28 +119,35 @@ func _on_attack_timeout():
 
 func lanzar_objeto_gigante():
 	if projectile_scene == null:
-		print("❌ ERROR: Debes asignar projectile_scene en el Inspector")
+		print("ERROR: Debes asignar projectile_scene en el Inspector")
 		return
-	
-	print("🔥 Boss lanzando proyectil")
 	
 	var projectile = projectile_scene.instantiate()
 	projectile.global_position = global_position
 	
+	# Dirección hacia el jugador
 	if player and is_instance_valid(player):
 		var dir_vector = (player.global_position - global_position).normalized()
 		
+		# Asignar direction solo si el proyectil tiene esa propiedad
 		if "direction" in projectile:
 			projectile.direction = dir_vector
 		
+		# Rotar según la dirección
 		projectile.rotation = dir_vector.angle()
 	
+	# Añadir al árbol (deferred)
 	get_parent().call_deferred("add_child", projectile)
+
+# -----------------------------------------------------------
+# DAÑO Y MUERTE
+# -----------------------------------------------------------
 
 func recibir_daño(cantidad: int):
 	vida -= cantidad
 	print("🔥 BOSS RECIBIENDO DAÑO: ", cantidad, " | Vida restante: ", vida)
 	
+	# Efecto de golpe
 	modulate = Color(1, 0, 0, 1)
 	await get_tree().create_timer(0.15).timeout
 	modulate = Color(1, 1, 1, 1)
@@ -173,9 +165,11 @@ func morir():
 	if attack_timer_ref:
 		attack_timer_ref.stop()
 	
+	# Animación de muerte
 	var tween = create_tween()
 	tween.set_parallel(true)
 	
+	# Efecto de parpadeo
 	for i in range(5):
 		tween.tween_property(self, "modulate", Color(1, 0, 0, 1), 0.1)
 		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.1)

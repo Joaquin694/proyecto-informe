@@ -62,7 +62,6 @@ position = Vector2(1166, 235)
 position = Vector2(1378, 103)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="BossEscena1" parent="." groups=["boss"] instance=ExtResource("7_g8504")]

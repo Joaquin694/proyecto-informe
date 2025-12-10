@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://dw3414ks77jw8"]
+
+[ext_resource type="Texture2D" uid="uid://dqfiq7jydpg72" path="res://fotogramas/boss2/derecha/sprite_0.png" id="1_8coqe"]
+[ext_resource type="Script" uid="uid://dabofyuirhrc5" path="res://Scripts/boss_escena_2.gd" id="1_rapih"]
+[ext_resource type="PackedScene" uid="uid://lvgnxyfij0d8" path="res://Escenas/objeto_boss_2.tscn" id="2_qrfu6"]
+[ext_resource type="Texture2D" uid="uid://b83jtampegrei" path="res://fotogramas/boss2/derecha/sprite_1.png" id="2_rapih"]
+[ext_resource type="Texture2D" uid="uid://8ctjjcjpu2h4" path="res://fotogramas/boss2/derecha/sprite_2.png" id="3_qrfu6"]
+[ext_resource type="Texture2D" uid="uid://bpwq82ldlvqdp" path="res://fotogramas/boss2/izquierda/sprite_0.png" id="4_o86u7"]
+[ext_resource type="Texture2D" uid="uid://ci1sas3ebeeqw" path="res://fotogramas/boss2/izquierda/sprite_1.png" id="5_pjeov"]
+[ext_resource type="Texture2D" uid="uid://csmul2clw6r2w" path="res://fotogramas/boss2/izquierda/sprite_2.png" id="6_w6a50"]
+[ext_resource type="Texture2D" uid="uid://cc3e28uijoy0b" path="res://fotogramas/boss2/quieto/0.png" id="7_f5dyq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mjdg8"]
+radius = 20.0
+height = 72.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3fj5r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8coqe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rapih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qrfu6")
+}],
+"loop": true,
+"name": &"derecha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_o86u7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pjeov")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_w6a50")
+}],
+"loop": true,
+"name": &"izquierda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_f5dyq")
+}],
+"loop": true,
+"name": &"quieto",
+"speed": 5.0
+}]
+
+[node name="BossEscena2" type="CharacterBody2D"]
+script = ExtResource("1_rapih")
+projectile_scene = ExtResource("2_qrfu6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(27, 43)
+shape = SubResource("CapsuleShape2D_mjdg8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(25.5, 42)
+scale = Vector2(0.765625, 1)
+sprite_frames = SubResource("SpriteFrames_3fj5r")
+animation = &"izquierda"
+
+[node name="AttackTimer" type="Timer" parent="."]
+autostart = true

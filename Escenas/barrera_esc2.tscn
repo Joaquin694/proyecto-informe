@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1hafn4274h8q"]
+
+[ext_resource type="Script" uid="uid://udrg4yec8hd1" path="res://Scripts/barrera_esc_2.gd" id="1_o4k6j"]
+[ext_resource type="Texture2D" uid="uid://cmky4v3lb73s6" path="res://Imagenes/reja.png" id="2_dud74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nab38"]
+size = Vector2(42, 46.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4k6j"]
+size = Vector2(101, 46)
+
+[node name="Barrera" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_o4k6j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(17, 23.75)
+shape = SubResource("RectangleShape2D_nab38")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 24)
+scale = Vector2(0.10555554, 0.13055556)
+texture = ExtResource("2_dud74")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(87, 36)
+collision_layer = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-40.5, -12)
+shape = SubResource("RectangleShape2D_o4k6j")

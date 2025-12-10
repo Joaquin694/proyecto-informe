@@ -1,98 +1,123 @@
 extends Node2D
 
 @export var zombie_scene: PackedScene
-@export var spawn_activo: bool = true
-@export var intervalo_spawn: float = 20
-@export var enemigos_por_spawn: int = 1
+@export var spawn_activo := true
+@export var intervalo_spawn := 5.0
+@export var enemigos_por_ronda := 2
 
-@export var areas_spawn: Array[Rect2] = [
-	Rect2(300, 150, 1000, 300), 
-	Rect2(2000, 100, 1000, 300),   
-	Rect2(2000, -500, 400, 400),
-]
+@export var areas_spawn: Array[Rect2] = []
 
 var timer_spawn: Timer
+const DISTANCIA_MINIMA_ENTRE_ENEMIGOS := 60
+const DISTANCIA_MINIMA_JUGADOR := 150
 
 func _ready():
 	if areas_spawn.is_empty():
-		print("ERROR: No hay áreas de spawn configuradas")
+		push_error("⚠ No hay áreas de spawn configuradas")
 		return
 	
 	timer_spawn = Timer.new()
 	timer_spawn.wait_time = intervalo_spawn
 	timer_spawn.autostart = true
-	timer_spawn.timeout.connect(_on_spawn_timer_timeout)
+	timer_spawn.timeout.connect(_on_spawn_round)
 	add_child(timer_spawn)
 	
-	print("Spawner de zombis iniciado con ", areas_spawn.size(), " áreas.")
+	print("Spawner iniciado con ", areas_spawn.size(), " áreas")
 
-func _on_spawn_timer_timeout():
-	if not spawn_activo:
-		return
-	
-	var cantidad = randi_range(4, 5)
-	
-	for i in cantidad:
-		spawn_zombie()
-		await get_tree().create_timer(0.3).timeout
+func _on_spawn_round():
+	if not spawn_activo: return
 
-func spawn_zombie():
+	# Elegimos 4 áreas distintas
+	var zonas = areas_spawn.duplicate()
+	zonas.shuffle()
+	zonas = zonas.slice(0, min(enemigos_por_ronda, zonas.size()))
+
+	for i in zonas.size():
+		spawn_zombie(zonas[i])
+		await get_tree().create_timer(0.2).timeout
+
+
+# -----------------------------
+# SPAWN INDIVIDUAL
+# -----------------------------
+func spawn_zombie(area: Rect2):
 	if not zombie_scene:
-		print("ERROR: zombie_scene no asignado")
+		push_error("⚠ zombie_scene no asignado")
 		return
 	
-	var posicion_valida = buscar_posicion_valida()
-	
-	if posicion_valida == Vector2.ZERO:
-		print("No se encontró posición válida para spawn")
+	var posicion = buscar_posicion_valida(area)
+	if posicion == Vector2.ZERO:
+		print("No hay posición válida en área:", area)
 		return
-	
-	var zombie = zombie_scene.instantiate()
-	zombie.global_position = posicion_valida
-	
-	get_parent().call_deferred("add_child", zombie)
-	
-	print("Zombi spawneado en: ", posicion_valida)
 
-func buscar_posicion_valida() -> Vector2:
-	var intentos_maximos = 30
-	var intentos = 0
-	
-	while intentos < intentos_maximos:
-		var area_elegida = areas_spawn[randi() % areas_spawn.size()]
-		
+	var zombie = zombie_scene.instantiate()
+	zombie.global_position = posicion
+	get_parent().call_deferred("add_child", zombie)
+
+	print("🧟 Zombi spawneado en", posicion)
+
+
+# -----------------------------
+# BÚSQUEDA DE POSICIONES
+# -----------------------------
+func buscar_posicion_valida(area: Rect2) -> Vector2:
+	var max_intentos = 30
+
+	for i in max_intentos:
 		var pos_random = Vector2(
-			randf_range(area_elegida.position.x, area_elegida.position.x + area_elegida.size.x),
-			randf_range(area_elegida.position.y, area_elegida.position.y + area_elegida.size.y)
+			randf_range(area.position.x, area.position.x + area.size.x),
+			randf_range(area.position.y, area.position.y + area.size.y)
 		)
-		
+
 		if es_posicion_valida(pos_random):
 			return pos_random
-		
-		intentos += 1
 	
 	return Vector2.ZERO
 
-func es_posicion_valida(posicion: Vector2) -> bool:
+
+# -----------------------------
+# VALIDACIÓN REALISTA DE COLISIONES
+# -----------------------------
+func es_posicion_valida(pos: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsPointQueryParameters2D.new()
-	query.position = posicion
-	query.collision_mask = 1
-	query.collide_with_areas = false
-	query.collide_with_bodies = true
 	
-	var result = space_state.intersect_point(query, 1)
-	
+	# --- 1) Checar colisiones usando la forma ENTERA del enemigo ---
+	var temp_zombie = zombie_scene.instantiate()
+	temp_zombie.position = pos
+
+	var shape_owner = temp_zombie.shape_owner_get_owner(0)
+	var shape = temp_zombie.shape_owner_get_shape(0, 0)
+	var shape_xform = temp_zombie.global_transform
+
+	var params = PhysicsShapeQueryParameters2D.new()
+	params.shape = shape
+	params.transform = shape_xform
+	params.collision_mask = 1  # ajusta si tus paredes tienen otra capa
+	params.collide_with_bodies = true
+	params.collide_with_areas = true
+
+	var result = space_state.intersect_shape(params, 1)
+	temp_zombie.queue_free()
+
 	if result.size() > 0:
 		return false
-	
-	var enemigos = get_tree().get_nodes_in_group("enemigo")
-	for enemigo in enemigos:
-		if posicion.distance_to(enemigo.global_position) < 50:
+
+	# --- 2) Evitar que aparezca encima de otros enemigos ---
+	for e in get_tree().get_nodes_in_group("enemigo"):
+		if pos.distance_to(e.global_position) < DISTANCIA_MINIMA_ENTRE_ENEMIGOS:
 			return false
-	
+
+	# --- 3) Evitar que aparezca demasiado cerca del jugador ---
+	var jugador = get_tree().get_first_node_in_group("jugador")
+	if jugador and pos.distance_to(jugador.global_position) < DISTANCIA_MINIMA_JUGADOR:
+		return false
+
 	return true
 
+
+# -----------------------------
+# GESTIÓN
+# -----------------------------
 func detener_spawn():
 	spawn_activo = false
 	if timer_spawn:
@@ -103,37 +128,7 @@ func reanudar_spawn():
 	if timer_spawn:
 		timer_spawn.start()
 
-func cambiar_intervalo(nuevo_intervalo: float):
+func cambiar_intervalo(nuevo_intervalo):
 	intervalo_spawn = nuevo_intervalo
 	if timer_spawn:
-		timer_spawn.wait_time = intervalo_spawn
-
-func agregar_area_spawn(nueva_area: Rect2):
-	areas_spawn.append(nueva_area)
-	print("Nueva área de spawn agregada: ", nueva_area)
-
-func limpiar_areas():
-	areas_spawn.clear()
-	print("Todas las áreas de spawn eliminadas")
-
-func _draw():
-	if Engine.is_editor_hint() or OS.is_debug_build():
-		var colores = [
-			Color(1, 0, 0, 0.2),
-			Color(0, 1, 0, 0.2),
-			Color(0, 0, 1, 0.2),
-			Color(1, 1, 0, 0.2),
-			Color(1, 0, 1, 0.2),
-			Color(0, 1, 1, 0.2),
-		]
-		
-		for i in range(areas_spawn.size()):
-			var area = areas_spawn[i]
-			var color = colores[i % colores.size()]
-			
-			draw_rect(area, color)
-			draw_rect(area, Color(color.r, color.g, color.b, 1.0), false, 3.0)
-			
-			var texto_pos = area.position + Vector2(10, 20)
-			draw_string(ThemeDB.fallback_font, texto_pos, "Área " + str(i + 1),
-				HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color.WHITE)
+		timer_spawn.wait_time = nuevo_intervalo

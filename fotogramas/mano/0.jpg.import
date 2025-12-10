@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfmnbw0ioac6f"
-path="res://.godot/imported/sprite_1.png-34cded136dbf25d31f1cf6fd529a1326.ctex"
+uid="uid://vw1ji36pk1yu"
+path="res://.godot/imported/0.jpg-f11a33788df053ed7d7e5ef8e427f97f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://fotogramas/boss/derecha/sprite_1.png"
-dest_files=["res://.godot/imported/sprite_1.png-34cded136dbf25d31f1cf6fd529a1326.ctex"]
+source_file="res://fotogramas/mano/0.jpg"
+dest_files=["res://.godot/imported/0.jpg-f11a33788df053ed7d7e5ef8e427f97f.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbr7qpq7di6p1"
-path="res://.godot/imported/boss1.png-9974a1641b79febedca838ef5ea4190d.ctex"
+uid="uid://rs8ae1ns5ogb"
+path="res://.godot/imported/sprite_2.png-096342729bfaeb8ffdc334d0d3579017.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://fotogramas/boss/quieto/boss1.png"
-dest_files=["res://.godot/imported/boss1.png-9974a1641b79febedca838ef5ea4190d.ctex"]
+source_file="res://fotogramas/boss1/derecha/sprite_2.png"
+dest_files=["res://.godot/imported/sprite_2.png-096342729bfaeb8ffdc334d0d3579017.ctex"]
 
 [params]
 

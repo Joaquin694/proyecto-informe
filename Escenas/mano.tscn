@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://duy0113hedud"]
+
+[ext_resource type="Script" uid="uid://b1g1xanxw8awt" path="res://Scripts/mano.gd" id="1_y18tm"]
+[ext_resource type="Texture2D" uid="uid://vw1ji36pk1yu" path="res://fotogramas/mano/0.jpg" id="2_60nd4"]
+[ext_resource type="Texture2D" uid="uid://smet1ays1bho" path="res://fotogramas/mano/1.jpg" id="2_nw2dr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pmxxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_60nd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nw2dr")
+}],
+"loop": true,
+"name": &"mano",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nw2dr"]
+radius = 50.803543
+
+[node name="Mano" type="Area2D" groups=["enemigos", "manos"]]
+light_mask = 3
+script = ExtResource("1_y18tm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -3.138327
+scale = Vector2(0.17708333, 0.14444444)
+sprite_frames = SubResource("SpriteFrames_pmxxj")
+animation = &"mano"
+frame_progress = 0.7014149
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nw2dr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
